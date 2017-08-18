@@ -18,8 +18,15 @@ end
 
 sample = 0:1:255;
 plot(T1*sample, x1);
+
 hold on
 plot(T2*sample, x2);
+%legend();
+xlabel('Time');
+ylabel('Magnitude');
+legend({'x1','x2'});
+title('Time domain');
+
 
 figure;
 fs1 = 1.2;
@@ -32,9 +39,14 @@ X2_mags = abs(fft(x2));
 fax_bins = [0 : N-1]; %frequency axis in bins
 N_2 = ceil(N/2);
 plot(fax_bins(1:N_2)*fs1/N, X1_mags(1:N_2));
+legend('x1');
 hold on;
 plot(fax_bins(1:N_2)*fs2/N, X2_mags(1:N_2));
-xlabel('Frequency')
+legend('x2');
+xlabel('Frequency');
 ylabel('Magnitude');
+legend({'x1','x2'});
+title('Frequency domain');
+
 
 
