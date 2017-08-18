@@ -10,7 +10,7 @@ T = 1/4.8;
 w = -pi:0.01:pi;
 XC = (a+1i*w)./((a+1i*w).^2+ OMG.^2);%continues time FT
 %abs(xc) only plot the magnetude 
-plot(w, abs(XC));
+%plot(w, abs(XC));
 
 
 %NOW plot the sampled DTFT 
@@ -20,4 +20,4 @@ B = [1 -2*exp(-a*T)*cos(OMG*T) exp(-2*a*T)];
 hold on;
 %w/T=continuous time frequency
 %abs(f)*T
-plot ( w/T, abs(f)*T, 'o');
+plot ( w, abs(f)*T, 'o');
