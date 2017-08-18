@@ -33,7 +33,7 @@ fax_bins = [0 : N-1]; %frequency axis in bins
 N_2 = ceil(N/2);
 plot(fax_bins(1:N_2)*fs1/N, X1_mags(1:N_2));
 hold on;
-plot(fax_bins(1:N_2)*fs2/N, X2_mags(1:N_2));
+plot(fax_bins(1:N_2)*fs2/N, X2_mags(1:N_2))
 xlabel('Frequency')
 ylabel('Magnitude');
 

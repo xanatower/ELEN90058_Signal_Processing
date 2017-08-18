@@ -27,14 +27,17 @@ fs2 = 4.8;
 N=255;
 X1_mags = abs(fft(x1));
 X2_mags = abs(fft(x2));
-%Y1_mags = abs(fft(y1));
-%Y2_mags = abs(fft(y2));
 fax_bins = [0 : N-1]; %frequency axis in bins
 N_2 = ceil(N/2);
-plot(fax_bins(1:N_2)*fs1/N, X1_mags(1:N_2));
+plot(fax_bins(1:N_2)*fs1/N, X1_mags(1:N_2))
 hold on;
-plot(fax_bins(1:N_2)*fs2/N, X2_mags(1:N_2));
+plot(fax_bins(1:N_2)*fs2/N, X2_mags(1:N_2))
 xlabel('Frequency')
 ylabel('Magnitude');
 
+%axis tight
 
+% X1 = abs(fft(x2, 256));
+% X1 = fftshift(X1);
+% fVals = (1:1:256)*fs2/256;
+% plot(fVals, X1);
