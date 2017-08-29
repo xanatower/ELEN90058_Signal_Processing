@@ -18,7 +18,7 @@ void EchoFilter(void)
 {
 	// TODO: Implement echo filter (a)
 	//loa = LeftInput;
-	//y[n] = x[n] + alpha*x[current] becuase x
+	//y[n] = x[n] + alpha*x[current] becuase x[current] is from the last sample period
 	loa = LeftInput + alpha_a*x[current];
 
 	// TODO: Implement echo filter (b)
@@ -30,5 +30,6 @@ void EchoFilter(void)
 	//update the sample 
 	x[current] = LeftInput;
 	current++;
+	printf("%d\n", current);
 	current = current%1760;
 }
