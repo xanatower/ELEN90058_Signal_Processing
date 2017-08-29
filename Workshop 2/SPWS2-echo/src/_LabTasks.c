@@ -10,7 +10,7 @@ float loa, lob, loc;
 // Declare any global variables you need
 int D = 1760;
 float alpha_a  = 0.75;
-float x[D] = {0.0};
+float x[1760] = {0.0};
 int current = 0;
 
 
@@ -18,7 +18,8 @@ void EchoFilter(void)
 {
 	// TODO: Implement echo filter (a)
 	//loa = LeftInput;
-	loa = LeftInput + alpha_a * x[current];
+	//y[n] = x[n] + alpha*x[current] becuase x
+	loa = LeftInput + alpha_a*x[current];
 
 	// TODO: Implement echo filter (b)
 	lob = LeftInput;
@@ -29,5 +30,5 @@ void EchoFilter(void)
 	//update the sample 
 	x[current] = LeftInput;
 	current++;
-	current = current%4;
+	current = current%1760;
 }
