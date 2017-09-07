@@ -3,6 +3,14 @@
 #define SAMPLE_RATE 24000.0
 #define PI 3.14159265359
 
+
+
+
+#define BUFFER_SIZE     2
+//define the buffer size
+
+#define INDEX(CURRENT)  ((CURRENT) + BUFFER_SIZE) % BUFFER_SIZE
+
 // Input samples
 float LeftInput; 
 float RightInput;
@@ -15,6 +23,15 @@ float RightInputCorrupted;
 float LeftOutputFiltered; 
 float RightOutputFiltered;
 
+
+
+
+
+static float xBufferL[BUFFER_SIZE] = {0.0};
+//static float xBufferR[BUFFER_SIZE] = {0.0};
+// input buffer (Left and Right)
+
+static float yBufferL[BUFFER_SIZE] = {0.0};
 
 
 
@@ -49,58 +66,24 @@ void AddSinus(void)
 
 
 //we are only implementing MONO audio at this stage
-float x[4] = {0.0};
-float y[2] = {0.0};
-float xn, xn_1, xn_2 = 0;
-float yn, yn_1, yn_2 = 0;
+
 
 void NotchFilter(void)
 {
-	// TODO: 3. Filter the corrupted samples
+	static current = 0;
 
-	//first assign the LeftInputCorrupted as the input x
-
-	//x[n] is just LeftInputCorrupted
-
-	xn = LeftInputCorrupted;
-
-	/*standard way*/
-	//y[n] = ((1+alpha)/2) * (x[n] - 2*beta*x[n-1] +x[n-2])
-	// + beta*(1+alpha)*y[n-1] - alpha*y[n-2];
-
-	 yn = ((1+alpha)/2) * (xn - 2*beta*xn_1 + xn_2)
-	 + beta*(1+alpha)*yn_1 - alpha*yn_2;
+	LeftOutputFiltered = ((1+alpha)/2)*LeftInputCorrupted - 2*beta*((1+alpha)/2)*xBufferL[INDEX(current-1)]+
+	((1+alpha)/2)*xBufferL[INDEX(current-2)];
 
 
+	xBufferL[current] = LeftInputCorrupted;
+	yBufferL[current] = LeftOutputFiltered;
+
+	current++;
+    current = current % BUFFER_SIZE;
 	 
 
-	 /*update my stuffs*/
-	 xn_2 = xn_1;
-	 xn_1 = xn;
-	 yn_2 = yn_1;
-	 yn_1 = yn;
-	 /*output yn*/
-	 LeftOutputFiltered = yn;
-
-
-
-	 /*
-	y[current] =  beta*(1+alpha)*y[current-1] + (1+alpha)/2 * x[current] 
-	+  beta*(1+alpha) * x[current] + ((1+alpha)/2)*x[current-2];
-	*/
-
-	//((1+alpha)/2)*x[current] - 2*beta*x[current-1] + x[current - 2]
-	//+ beta * (1+alpha) * y[current-1] - alpha*y[current-2];
-
-
-	//after calculation, update stuffs
-//	y[current-1] = y[current];//update y
-//	x[current-2] = x[current-1];
-//	x[current-1] = x[current];
-
-	//output the calculated(filtered) result
-	/*LeftOutputFiltered = y[current];
-	current++;
-	current = current%3;*/
+	 /*yn = ((1+alpha)/2) * (xn - 2*beta*xn_1 + xn_2)
+	 + beta*(1+alpha)*yn_1 - alpha*yn_2;*/
 
 }
