@@ -2,10 +2,6 @@
 #include "math.h"
 #define SAMPLE_RATE 24000.0
 #define PI 3.14159265359
-
-
-
-
 #define BUFFER_SIZE     2
 //define the buffer size
 
@@ -22,8 +18,6 @@ float RightInputCorrupted;
 // Filtered samples
 float LeftOutputFiltered; 
 float RightOutputFiltered;
-
-
 
 
 
@@ -73,7 +67,8 @@ void NotchFilter(void)
 	static current = 0;
 
 	LeftOutputFiltered = ((1+alpha)/2)*LeftInputCorrupted - 2*beta*((1+alpha)/2)*xBufferL[INDEX(current-1)]+
-	((1+alpha)/2)*xBufferL[INDEX(current-2)];
+	((1+alpha)/2)*xBufferL[INDEX(current-2)] + beta*(1+alpha)*yBufferL[INDEX(current-1)]
+	-alpha*yBufferL[INDEX(current-2)];
 
 
 	xBufferL[current] = LeftInputCorrupted;
