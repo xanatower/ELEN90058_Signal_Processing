@@ -2,7 +2,7 @@ clc
 clear all
 close all
 
-load('projsignal1.mat');
+load('projsignal0.mat');
 fs1 = 32.768e3;
 %fs2 = 4.8;
 N=327680;
