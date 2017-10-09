@@ -5,7 +5,7 @@ close all
 load('projsignal0.mat');
 fs1 = 32.768e3;
 %fs2 = 4.8;
-N=327680;
+N=292452;
 X1_mags = abs(fft(rs));
 %X2_mags = abs(fft(x2));
 %Y1_mags = abs(fft(y1));
