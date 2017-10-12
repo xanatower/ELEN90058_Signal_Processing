@@ -42,7 +42,7 @@ f2 = 2000;
 w2 = 2*pi*f2;
 %test signal length is the same as the sampling frequency
 n_sampled = (1:fs*100)/fs;
-x = sin(w1*n_sampled)+sin(w2*n_sampled);
+x = sin(w2*n_sampled);
 
 %plot this generated signal in frequency domain
 figure;
