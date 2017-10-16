@@ -2,7 +2,7 @@
 // TODO: 0. Modify these constants to match the filter you have designed
 
 // length of filter
-#define M 47
+#define M 49
 
 // buffer size
 #define N 512 //this is dertermined by the optimal block length

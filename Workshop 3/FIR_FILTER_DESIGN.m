@@ -1,16 +1,15 @@
 %filter design
-
 clc;
 clear;
 close all;
 
 
-N = 2^9;                % block length
+N = 2^9;  % block length
 
 fs = 24E3;%samplin frequency
 % FIR filter design
 [ORD, passband_edge, frequency_band_mag, w] = firpmord([220 880], [1 0], [0.05 0.05], fs);
-ORD = ORD + 7;  % increment the filter order until all specifications are satisfied
+ORD = ORD + 10; 
 
 num = firpm(ORD, passband_edge, frequency_band_mag, w);
 
@@ -42,7 +41,7 @@ f2 = 2000;
 w2 = 2*pi*f2;
 %test signal length is the same as the sampling frequency
 n_sampled = (1:fs*100)/fs;
-x = sin(w2*n_sampled);
+x = sin(w1*n_sampled)+sin(w2*n_sampled);
 
 %plot this generated signal in frequency domain
 figure;
@@ -73,11 +72,17 @@ title('filtered x in Frequency domain');
 xlabel('frequency(Hz)');
 ylabel('Magnitude(linear scale)');
 
-sound(x, fs);
+%sound(x, fs);
 
+y_overlapadd = overlapadd(num, x, N);
+y_filter  = filter(num, 1, x);
+y_fftfilt  = fftfilt(num, x);
 
+for i= 1:1:length(y_overlapadd)
+    if((y_overlapadd(i)) ~= (y_fftfilt(i)))
+        fprintf('WRONG!!!\n');
+    end
+end
 
-
-
-
+fprintf('the overlap add output is the same as the fftfilt() function output' );
 
